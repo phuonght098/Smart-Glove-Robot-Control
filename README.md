@@ -78,8 +78,11 @@ Layer height: 0.2mm
 # 4. Software
 
 ## 4.1 Overall System Flowchart
+<details>
+<summary>📊 System Flowchart</summary>
+
 ```mermaid
-graph LR
+graph TD
   START([START]) --> INIT1[Initialize ESP32]
   INIT1 --> INIT2[Initialize I2C Bus]
   INIT2 --> INIT3[Initialize 3x ICM20948 IMUs]
@@ -87,14 +90,14 @@ graph LR
   INIT4 --> INIT5[Initialize ESP-NOW]
   INIT5 --> WAIT[Wait for DMP convergence 60s]
   WAIT --> COND{PCA Calibration?}
-
+  
   COND -- Yes --> PCA[PCA Calibration]
   PCA --> ZERO[Zero Calibration]
   ZERO --> MAIN[Main Loop]
-
+  
   COND -- No --> IDLE[Wait for Command]
   IDLE --> MAIN
-
+  
   MAIN --> READ[Read Quaternions from 3 IMUs]
   READ --> SYNC[Synchronize Timestamps]
   SYNC --> NLERP[NLERP Filtering]
@@ -105,3 +108,5 @@ graph LR
   SEND --> EXEC[Robot Execution]
   EXEC --> READ
 ```
+
+</details>
