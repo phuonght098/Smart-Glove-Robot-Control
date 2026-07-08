@@ -79,7 +79,7 @@ Layer height: 0.2mm
 
 ## 4.1 Overall System Flowchart
 ```mermaid
-graph TD
+graph 
   START([START]) --> INIT1[Initialize ESP32]
   INIT1 --> INIT2[Initialize I2C Bus]
   INIT2 --> INIT3[Initialize 3x ICM20948 IMUs]
