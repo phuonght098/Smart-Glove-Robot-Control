@@ -147,7 +147,7 @@ graph TD
   MOUNT --> SAVE[Save Q_Mount]
   SAVE --> END([END])
 ```
-
+</details>
 ## 4.3 Quaternion Processing Pipeline
 This is the main continuous data processing pipeline in the system loop.
 
@@ -183,9 +183,11 @@ graph TD
   J3 --> ANGLES
 
 ```
+</details>
 
 ## 4.4 Shoulder Angles
-
+<details>
+  
 ```mermaid
 graph TD
   IN[/Q_Shoulder/] --> MAT[Quaternion → Matrix]
@@ -199,7 +201,9 @@ graph TD
 
 
 ```
+</details>
 ## 4.5 Elbow Angle
+<details>
 
 ```mermaid
 graph TD
@@ -215,7 +219,11 @@ graph TD
   CALC --> OUT[/S3 Angle <br> Flexion / Extension/]
 
 ```
+</details>
+
 ## 4.6 Wrist Angles
+<details>
+  
 ```mermaid
 graph TD
   F[/Anat_Forearm/] --> REL[Relative Quaternion]
@@ -233,5 +241,6 @@ graph TD
   ATAN --> S5[/S5 Angle/]
 
 ```
+</details>
 
 # 5. Getting Started
