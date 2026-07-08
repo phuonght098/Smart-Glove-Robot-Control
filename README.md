@@ -110,3 +110,128 @@ graph TD
 ```
 
 </details>
+
+## 4.2 Flowchart PCA Calibration
+This is the most unique core algorithm of the project for coordinate axis calibration.
+
+<details>
+<summary>📊 PCA Calibration </summary>
+
+```mermaid
+graph TD
+  START([START PCA]) --> NPOSE[N-Pose Posture]
+  NPOSE --> GRAV[Measure Gravity Vectors<br>gUpper, gForearm, gHand]
+  GRAV --> PCA_S[Shoulder PCA <br> Shoulder Motion]
+  PCA_S --> THU_S[Collect Quaternions for 3s]
+  THU_S --> DELTA_S[Calculate ΔQuaternion]
+  DELTA_S --> COV_S[Create Covariance Matrix]
+  COV_S --> POW_S[Power Iteration]
+  POW_S --> AXIS_S[Shoulder PCA Axis]
+  
+  AXIS_S --> PCA_E[Elbow PCA <br> Elbow Motion]
+  PCA_E --> THU_E[Collect Quaternions for 3s]
+  THU_E --> DELTA_E[Calculate ΔQuaternion]
+  DELTA_E --> COV_E[Create Covariance Matrix]
+  COV_E --> POW_E[Power Iteration]
+  POW_E --> AXIS_E[Elbow PCA Axis]
+  
+  AXIS_E --> PCA_W[Wrist PCA <br> Wrist Motion]
+  PCA_W --> THU_W[Collect Quaternions for 3s]
+  THU_W --> DELTA_W[Calculate ΔQuaternion]
+  DELTA_W --> COV_W[Create Covariance Matrix]
+  COV_W --> POW_W[Power Iteration]
+  POW_W --> AXIS_W[Wrist PCA Axis]
+  
+  AXIS_W --> GRAM[Gram-Schmidt Orthogonalization]
+  GRAM --> MOUNT[Create Mount Quaternion]
+  MOUNT --> SAVE[Save Q_Mount]
+  SAVE --> END([END])
+```
+
+## 4.3 Quaternion Processing Pipeline
+This is the main continuous data processing pipeline in the system loop.
+
+
+<details>
+<summary>📊 PCA Calibration </summary>
+
+```mermaid
+graph TD
+  Q1[/Quaternion Upper/] --> SYNC[Time Synchronization]
+  Q2[/Quaternion Forearm/] --> SYNC
+  Q3[/Quaternion Hand/] --> SYNC
+  
+  SYNC --> NLERP[NLERP Filter]
+  NLERP --> F1[Q_Upper_Filtered]
+  NLERP --> F2[Q_Forearm_Filtered]
+  NLERP --> F3[Q_Hand_Filtered]
+  
+  F1 --> MOUNT[Mount Calibration]
+  F2 --> MOUNT
+  F3 --> MOUNT
+  
+  MOUNT --> ANAT[Anatomical Quaternion]
+  ANAT --> DRIFT[Drift Compensation]
+  DRIFT --> REL[Relative Quaternion]
+  
+  REL --> J1[Shoulder]
+  REL --> J2[Elbow]
+  REL --> J3[Wrist]
+  
+  J1 --> ANGLES[/Joint Angles S1 S2 S3 S4 S5/]
+  J2 --> ANGLES
+  J3 --> ANGLES
+
+```
+
+## 4.4 Shoulder Angles
+
+```mermaid
+graph TD
+  IN[/Q_Shoulder/] --> MAT[Quaternion → Matrix]
+  MAT --> R[R_Shoulder Matrix]
+  
+  R --> S1[S1: atan2<br>-R01, R00]
+  R --> S2[S2: asin<br>R02]
+  
+  S1 --> OUT[/Result: Shoulder Angles/]
+  S2 --> OUT
+
+
+```
+## 4.5 Elbow Angle
+
+```mermaid
+graph TD
+  U[/Anat_Upper/] --> INV[Inverse]
+  INV --> MUL{X}
+  F[/Anat_Forearm/] --> MUL
+  
+  MUL --> QE[Q_Elbow]
+  QE --> DECOMP[Decompose Swing-Twist]
+  DECOMP --> TWIST[Twist Component]
+  TWIST --> CALC[Calculate Twist Angle<br>2 * atan2]
+  
+  CALC --> OUT[/S3 Angle <br> Flexion / Extension/]
+
+```
+## 4.6 Wrist Angles
+```mermaid
+graph TD
+  F[/Anat_Forearm/] --> REL[Relative Quaternion]
+  H[/Anat_Hand/] --> REL
+  
+  REL --> QW[Q_Wrist]
+  QW --> ST[Swing-Twist Decomposition]
+  
+  ST --> TWIST[Twist Component]
+  TWIST --> S4[/S4 Angle/]
+  
+  ST --> SWING[Swing Component]
+  SWING --> ROT[Rotation Matrix]
+  ROT --> ATAN[atan2]
+  ATAN --> S5[/S5 Angle/]
+
+```
+
+# 5. Getting Started
