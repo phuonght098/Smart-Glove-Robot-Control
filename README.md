@@ -49,6 +49,32 @@ Here is the list of main components used in this project.
 | Ball Bearing 6806ZZ (30x42x7) | 1 |
 
 📌 Note: For the mechanical structure, all .STL files required for 3D printing the robotic arm are provided in the /3D_Models directory.
-![Robot Arm Blueprint]<img width="468" height="674" alt="image" src="https://github.com/user-attachments/assets/d0c0fb10-26f1-4c1f-9d8d-6707b45ed179" />
+<img width="468" height="674" alt="image" src="https://github.com/user-attachments/assets/d0c0fb10-26f1-4c1f-9d8d-6707b45ed179" />
 
 ## 3.2 Wiring & PCB
+The schematic and PCB layout files, designed using EasyEDA.com, are located in the /Hardware folder. Due to the I2C address conflict among the ICM20948 sensors (which have a default address of 0x68), we need to connect the AD0 pin of each sensor to Vcc or GND to fix their addresses to either 0x68 or 0x69, as illustrated below.
+
+<img width="395" height="622" alt="image" src="https://github.com/user-attachments/assets/b454093c-5fd3-4e43-abee-58911b8b81de" />
+
+Below is the wiring diagram of the sensor glove circuit.
+
+<img width="677" height="420" alt="image" src="https://github.com/user-attachments/assets/53cb7cd3-c1b8-44ae-a9c9-7d3bc5710e85" />
+
+A voltage divider circuit is implemented for the flex sensor to read the ADC value on pin D34 of the ESP32. When the flex sensor bends, its resistance changes, which in turn alters the voltage at the junction between the flex sensor and the 10k resistor.
+
+Image of the sensor glove's PCB layout:
+
+<img width="1142" height="537" alt="image" src="https://github.com/user-attachments/assets/c19a23ac-2bc5-4c76-a716-27035e868c17" />
+
+## 3.3 3D Printing
+Recommended print settings:
+
+Material: PLA / PETG
+
+Infill: > 30%
+
+Layer height: 0.2mm
+
+# 4. Software
+
+## 4.1 
