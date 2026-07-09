@@ -158,7 +158,7 @@ This is the main continuous data processing pipeline in the system loop.
 
 
 <details>
-<summary>📊 PCA Calibration </summary>
+<summary>📊 Quaternion Processing Pipeline </summary>
 
 ```mermaid
 graph TD
