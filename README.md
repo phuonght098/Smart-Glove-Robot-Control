@@ -53,6 +53,7 @@ Here is the list of main components used in this project.
 
 
 📌 Note: For the mechanical structure, all .STL files required for 3D printing the robotic arm are provided in the /3D_Models directory.
+
 <img width="468" height="674" alt="image" src="https://github.com/user-attachments/assets/d0c0fb10-26f1-4c1f-9d8d-6707b45ed179" />
 
 ## 3.2 Wiring & PCB
