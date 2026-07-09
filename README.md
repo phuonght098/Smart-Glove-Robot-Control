@@ -1,5 +1,8 @@
 # Robotic Arm Control via Sensor Glove
-
+<p align="center">
+  <img src="[link_anh_1_cua_ban.jpg](https://github.com/user-attachments/assets/ca0abbd9-bae5-4724-b667-eded2d657b1e)" width="45%" />
+  <img src="[link_anh_2_cua_ban.jpg](https://github.com/user-attachments/assets/3ef16e84-fbb5-4ef1-b632-1e56b6ab0657)" width="45%" />
+</p>
 # Table of Content
 1. Introduction
 2. Features
@@ -244,3 +247,49 @@ graph TD
 </details>
 
 # 5. Getting Started
+## Prerequisites 
+
+Ensure you have installed Arduino IDE (or PlatformIO) and configured the ESP32 Board Manager. You will also need to install the following libraries via the Arduino Library Manager:
+
+SparkFun 9DoF IMU Breakout - ICM 20948 - Arduino Library (Provides ICM_20948.h and DMP support)
+
+Adafruit PWM Servo Driver Library (Provides Adafruit_PWMServoDriver.h for controlling the servo motors)
+
+📌 Note: The libraries esp_now.h, WiFi.h, and Wire.h are built-in libraries included with the ESP32 board package, so no extra installation is required for them.
+
+## Compilation & Upload 
+
+Clone this repository:
+
+git clone [https://github.com/](https://github.com/)[your_username]/[repo_name].git
+
+
+Upload to Transmitter (Sensor Glove):
+
+Open the Transmitter.ino file located in the /Software/Transmitter folder.
+
+Select your ESP32 board and the correct COM port in the IDE.
+
+Click Upload.
+
+Upload to Receiver (Robotic Arm):
+
+Open the Receiver.ino file located in the /Software/Receiver folder.
+
+Select your ESP32 board and the correct COM port in the IDE.
+
+Click Upload.
+
+Calibration & Usage:
+
+Power on both the robotic arm and the sensor glove.
+
+Keep the glove stationary for the first 60 seconds to allow the ICM20948's DMP (Digital Motion Processor) to converge and the system to complete its initial calibration.
+
+After the DMP converges, you need to calibrate the flex sensor threshold, the PCA motion axes, and the zero posture. 
+
+Once calibrated, the robotic arm will start mirroring the movements of the glove in real-time.
+
+# 6. Results
+
+
