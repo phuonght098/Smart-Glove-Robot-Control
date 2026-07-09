@@ -48,33 +48,6 @@ Here is the list of main components used in this project.
 | Toggle Switch | 1 |
 | Lipo 2s 420mAh | 1 |
 | Mini360 | 1 |
-| 5v 10A Bateryital Processing with DMP: Utilizes the ICM20948's onboard Digital Motion Processor to calculate Quaternions directly on the sensor, significantly reducing the processing load on the main microcontroller.
-
-⚡ Power Optimization: Features a customized voltage divider circuit and optimized current consumption for better efficiency.
-
-🛠️ Fully Open-source: Provides complete source code, PCB design files, and 3D printing models.
-
-# 3. Hardware
-
-## 3.1 Bill of Materials - BOM
-Here is the list of main components used in this project.
-
-| Component  | Qty | 
-| :--- | ---: | 
-| ESP32 | 2 | 
-| ICM20948 | 3 | 
-| Servo MG996R | 3 | 
-| Servo MG90S | 3 |
-| PCA9685 | 1 |
-| Flex Sensor | 1 |
-| Resistor 4.7k | 2 |
-| Resistor 10k | 1 |
-| Resistor 100k | 1 |
-| Resistor 200k | 1 |
-| LED | 1 |
-| Toggle Switch | 1 |
-| Lipo 2s 420mAh | 1 |
-| Mini360 | 1 |
 | 5v 10A Battery | 1 |
 | Ball Bearing 6806ZZ (30x42x7) | 1 |
 
