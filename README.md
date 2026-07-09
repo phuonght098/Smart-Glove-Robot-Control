@@ -1,5 +1,24 @@
 # Robotic Arm Control via Sensor Glove
 
+![Platform](https://img.shields.io/badge/Platform-ESP32-blue)
+![Language](https://img.shields.io/badge/C%2B%2B-Arduino-green)
+![Sensor](https://img.shields.io/badge/IMU-ICM20948-orange)
+![License](https://img.shields.io/badge/License-MIT-yellow)
+
+✔ Real-time 5 DOF robotic arm teleoperation
+
+✔ Quaternion-based motion estimation
+
+✔ PCA-based automatic anatomical axis calibration
+
+✔ Swing–Twist decomposition for joint angle extraction
+
+✔ Adaptive ZUPT heading drift compensation
+
+✔ ESP-NOW wireless communication
+
+✔ Open-source hardware, firmware, PCB, and 3D models
+
 <img width="647" height="342" alt="image" src="https://github.com/user-attachments/assets/28abf4dc-dc44-4c00-a53a-6dcebc4b6845" />
 
 # Table of Content
