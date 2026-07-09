@@ -68,7 +68,7 @@ A voltage divider circuit is implemented for the flex sensor to read the ADC val
 
 Image of the sensor glove's PCB layout:
 
-<img width="542" height="537" alt="image" src="https://github.com/user-attachments/assets/c19a23ac-2bc5-4c76-a716-27035e868c17" />
+<img width="942" height="537" alt="image" src="https://github.com/user-attachments/assets/c19a23ac-2bc5-4c76-a716-27035e868c17" />
 
 ## 3.3 3D Printing
 Recommended print settings:
