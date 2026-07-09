@@ -48,6 +48,34 @@ Here is the list of main components used in this project.
 | Toggle Switch | 1 |
 | Lipo 2s 420mAh | 1 |
 | Mini360 | 1 |
+| 5v 10A Bateryital Processing with DMP: Utilizes the ICM20948's onboard Digital Motion Processor to calculate Quaternions directly on the sensor, significantly reducing the processing load on the main microcontroller.
+
+⚡ Power Optimization: Features a customized voltage divider circuit and optimized current consumption for better efficiency.
+
+🛠️ Fully Open-source: Provides complete source code, PCB design files, and 3D printing models.
+
+# 3. Hardware
+
+## 3.1 Bill of Materials - BOM
+Here is the list of main components used in this project.
+
+| Component  | Qty | 
+| :--- | ---: | 
+| ESP32 | 2 | 
+| ICM20948 | 3 | 
+| Servo MG996R | 3 | 
+| Servo MG90S | 3 |
+| PCA9685 | 1 |
+| Flex Sensor | 1 |
+| Resistor 4.7k | 2 |
+| Resistor 10k | 1 |
+| Resistor 100k | 1 |
+| Resistor 200k | 1 |
+| LED | 1 |
+| Toggle Switch | 1 |
+| Lipo 2s 420mAh | 1 |
+| Mini360 | 1 |
+| 5v 10A Battery | 1 |
 | Ball Bearing 6806ZZ (30x42x7) | 1 |
 
 📌 Note: For the mechanical structure, all .STL files required for 3D printing the robotic arm are provided in the /3D_Models directory.
@@ -66,7 +94,7 @@ A voltage divider circuit is implemented for the flex sensor to read the ADC val
 
 Image of the sensor glove's PCB layout:
 
-<img width="1142" height="537" alt="image" src="https://github.com/user-attachments/assets/c19a23ac-2bc5-4c76-a716-27035e868c17" />
+<img width="542" height="537" alt="image" src="https://github.com/user-attachments/assets/c19a23ac-2bc5-4c76-a716-27035e868c17" />
 
 ## 3.3 3D Printing
 Recommended print settings:
@@ -291,4 +319,82 @@ Once calibrated, the robotic arm will start mirroring the movements of the glove
 
 # 6. Results
 
+## 6.1. Transmitter Power Estimation
+
+The table below estimates the current consumption of the sensor glove during continuous operation with ESP-NOW:
+| Device | Current Consumption |
+| :--- | :---: |
+| ESP32 (WiFi + ESP-NOW active) | 150 – 250 mA |
+| ICM-20948 #1 | ~3 mA |
+| ICM-20948 #2 | ~3 mA |
+| ICM-20948 #3 | ~3 mA |
+| Flex Sensor | < 1 mA |
+| Losses & Overhead | ~100 mA |
+| **Total Estimated** | **~260 – 360 mA** |
+🔋 Note: With this consumption rate, a standard 8.4V 420mAh LiPo 2S battery can power the glove continuously for approximately 1 to 1.5 hours.
+
+## 6.2 Independent Joint Motion (Cross-Coupling Analysis)
+<div align="center"> <img width="793" height="491" alt="image" src="https://github.com/user-attachments/assets/e5575c17-9d2b-4876-a441-946e6e535d9c"> </div>
+
+The first experiment evaluates the ability of the proposed algorithm to isolate wrist and elbow motions. Three sequential phases were performed:
+
+Phase 1: Static posture
+Phase 2: Elbow flexion only
+Phase 3: Wrist pronation/supination only
+
+During elbow flexion, the elbow angle (S3) increased smoothly from approximately 0° to 85°, while the wrist angles (S4 and S5) remained close to zero, exhibiting only small fluctuations below approximately ±5°.
+
+Conversely, during wrist rotation, S4 increased to approximately 80°, whereas the elbow angle (S3) remained almost constant, indicating that elbow estimation was not affected by wrist motion.
+
+These results demonstrate that the proposed quaternion-based biomechanical decomposition successfully separates rotational components between adjacent joints. Compared with conventional Euler-angle methods, which frequently suffer from cross-axis interference, the proposed Swing–Twist decomposition significantly reduces motion coupling between the elbow and wrist.
+
+6.2. Elbow Joint Angle Accuracy
+<div align="center"> <img width="592" height="406" alt="image" src="https://github.com/user-attachments/assets/cde2a27e-42af-4691-83bd-891b167ff2f9"> </div>
+
+The second experiment compares the elbow flexion angle estimated by the proposed IMU system against a reference trajectory obtained using video-based motion capture.
+
+The two curves exhibit nearly identical profiles throughout the complete flexion-extension cycle. Both systems capture:
+
+the beginning of elbow flexion,
+the constant-angle holding period,
+and the return to the neutral position.
+
+Only a small temporal delay (approximately 150 ms) can be observed, which mainly originates from the IMU sensor output rate, quaternion filtering, and wireless transmission latency.
+
+Apart from this minor delay, the amplitude and trajectory closely match the reference measurements, indicating that the proposed algorithm provides accurate real-time joint angle estimation suitable for robotic teleoperation applications.
+
+6.3. Heading Drift Compensation (ZUPT)
+<div align="center"> <img width="596" height="411" alt="image" src="https://github.com/user-attachments/assets/c348230a-2178-47d5-91f3-7503a595793a"> </div>
+
+Long-term orientation drift caused by gyroscope bias is a common limitation of inertial measurement systems. To evaluate the effectiveness of the proposed Zero Velocity Update (ZUPT) compensation, the user maintained a static posture for approximately 10 seconds.
+
+Without drift compensation, the estimated heading error gradually accumulated from 0° to approximately 15°, despite no actual movement.
+
+When the proposed ZUPT-based correction was enabled, the estimated error remained close to 0°, with only minor fluctuations of approximately ±1°.
+
+These results confirm that the proposed adaptive drift compensation effectively suppresses low-frequency heading drift during stationary periods while avoiding sudden orientation corrections that could disturb robot motion.
+
+6.4. Gimbal Lock Elimination
+<div align="center"> <img width="601" height="412" alt="image" src="https://github.com/user-attachments/assets/7a195d1e-9b81-493b-92a7-cb784d35bdcc"> </div>
+
+The final experiment investigates the behavior of the orientation representation near singular configurations.
+
+The arm was gradually raised until approaching 90°, where conventional Euler-angle representations typically experience gimbal lock.
+
+The Euler-angle curve exhibited significant oscillations and unstable spikes around the singular posture, despite the arm remaining almost stationary.
+
+In contrast, the quaternion-based orientation remained smooth and continuous throughout the entire movement, showing no observable discontinuities or instability.
+
+This experiment demonstrates one of the major advantages of quaternion-based orientation estimation. Since quaternions do not rely on sequential rotations, they avoid the singularity problem inherent to Euler angles and provide robust orientation tracking over the full workspace.
+
+6.5. Overall Discussion
+
+The experimental results verify the effectiveness of the proposed motion-capture pipeline from multiple aspects.
+
+The biomechanical joint decomposition effectively minimizes cross-coupling between neighboring joints.
+Quaternion-based orientation estimation accurately reproduces elbow motion with only a small latency relative to camera-based measurements.
+The adaptive ZUPT algorithm successfully compensates gyroscope heading drift during stationary periods.
+Quaternion representation completely eliminates the instability associated with Euler-angle singularities.
+
+Overall, the proposed system demonstrates stable real-time performance and provides sufficiently accurate joint-angle estimation for robotic arm teleoperation while maintaining computational efficiency on the ESP32 platform.
 
