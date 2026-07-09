@@ -334,7 +334,7 @@ The table below estimates the current consumption of the sensor glove during con
 🔋 Note: With this consumption rate, a standard 8.4V 420mAh LiPo 2S battery can power the glove continuously for approximately 1 to 1.5 hours.
 
 ## 6.2 Independent Joint Motion (Cross-Coupling Analysis)
-<div align="center"> <img width="793" height="491" alt="image" src="https://github.com/user-attachments/assets/e5575c17-9d2b-4876-a441-946e6e535d9c"> </div>
+<div align="center"> <img width="597" height="411" alt="image" src="https://github.com/user-attachments/assets/e5575c17-9d2b-4876-a441-946e6e535d9c"> </div>
 
 The first experiment evaluates the ability of the proposed algorithm to isolate wrist and elbow motions. Three sequential phases were performed:
 
@@ -348,7 +348,7 @@ Conversely, during wrist rotation, S4 increased to approximately 80°, whereas t
 
 These results demonstrate that the proposed quaternion-based biomechanical decomposition successfully separates rotational components between adjacent joints. Compared with conventional Euler-angle methods, which frequently suffer from cross-axis interference, the proposed Swing–Twist decomposition significantly reduces motion coupling between the elbow and wrist.
 
-6.2. Elbow Joint Angle Accuracy
+## 6.3. Elbow Joint Angle Accuracy
 <div align="center"> <img width="592" height="406" alt="image" src="https://github.com/user-attachments/assets/cde2a27e-42af-4691-83bd-891b167ff2f9"> </div>
 
 The second experiment compares the elbow flexion angle estimated by the proposed IMU system against a reference trajectory obtained using video-based motion capture.
@@ -363,7 +363,7 @@ Only a small temporal delay (approximately 150 ms) can be observed, which mainly
 
 Apart from this minor delay, the amplitude and trajectory closely match the reference measurements, indicating that the proposed algorithm provides accurate real-time joint angle estimation suitable for robotic teleoperation applications.
 
-6.3. Heading Drift Compensation (ZUPT)
+## 6.4. Heading Drift Compensation (ZUPT)
 <div align="center"> <img width="596" height="411" alt="image" src="https://github.com/user-attachments/assets/c348230a-2178-47d5-91f3-7503a595793a"> </div>
 
 Long-term orientation drift caused by gyroscope bias is a common limitation of inertial measurement systems. To evaluate the effectiveness of the proposed Zero Velocity Update (ZUPT) compensation, the user maintained a static posture for approximately 10 seconds.
@@ -374,7 +374,7 @@ When the proposed ZUPT-based correction was enabled, the estimated error remaine
 
 These results confirm that the proposed adaptive drift compensation effectively suppresses low-frequency heading drift during stationary periods while avoiding sudden orientation corrections that could disturb robot motion.
 
-6.4. Gimbal Lock Elimination
+## 6.5. Gimbal Lock Elimination
 <div align="center"> <img width="601" height="412" alt="image" src="https://github.com/user-attachments/assets/7a195d1e-9b81-493b-92a7-cb784d35bdcc"> </div>
 
 The final experiment investigates the behavior of the orientation representation near singular configurations.
@@ -387,7 +387,7 @@ In contrast, the quaternion-based orientation remained smooth and continuous thr
 
 This experiment demonstrates one of the major advantages of quaternion-based orientation estimation. Since quaternions do not rely on sequential rotations, they avoid the singularity problem inherent to Euler angles and provide robust orientation tracking over the full workspace.
 
-6.5. Overall Discussion
+## 6.6. Overall Discussion
 
 The experimental results verify the effectiveness of the proposed motion-capture pipeline from multiple aspects.
 
@@ -397,4 +397,29 @@ The adaptive ZUPT algorithm successfully compensates gyroscope heading drift dur
 Quaternion representation completely eliminates the instability associated with Euler-angle singularities.
 
 Overall, the proposed system demonstrates stable real-time performance and provides sufficiently accurate joint-angle estimation for robotic arm teleoperation while maintaining computational efficiency on the ESP32 platform.
+
+# 7. Future Work
+
+🚧 Limitations: Servo motor lifting capacity is limited; the system can be susceptible to signal interference in highly metallic environments.
+
+🚀 Future Directions:
+
+Replace Servo motors with BLDC motors combined with Encoders to increase accuracy and payload capacity.
+
+Integrate Force Feedback sensors into the glove so the user can "feel" the objects being grabbed.
+
+# 8. Contact
+
+Author: Huynh Thanh Phuong
+
+Email: phuong0342098446@gmail
+
+LinkedIn: 
+
+If you find this project helpful, please consider giving it a ⭐ (Star) on GitHub! Thank you!
+
+# 9. License
+
+This project is licensed under the MIT License.
+
 
