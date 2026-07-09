@@ -152,6 +152,7 @@ graph TD
   SAVE --> END([END])
 ```
 </details>
+
 ## 4.3 Quaternion Processing Pipeline
 This is the main continuous data processing pipeline in the system loop.
 
@@ -206,7 +207,9 @@ graph TD
 
 ```
 </details>
+
 ## 4.5 Elbow Angle
+
 <details>
 
 ```mermaid
@@ -226,6 +229,7 @@ graph TD
 </details>
 
 ## 4.6 Wrist Angles
+
 <details>
   
 ```mermaid
