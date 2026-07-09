@@ -1,8 +1,6 @@
 # Robotic Arm Control via Sensor Glove
-<p align="center">
-  <img src="https://github.com/user-attachments/assets/ca0abbd9-bae5-4724-b667-eded2d657b1e" width="45%" />
-  <img src="https://github.com/user-attachments/assets/3ef16e84-fbb5-4ef1-b632-1e56b6ab0657" width="45%" />
-</p>
+
+<img width="647" height="342" alt="image" src="https://github.com/user-attachments/assets/28abf4dc-dc44-4c00-a53a-6dcebc4b6845" />
 
 # Table of Content
 1. Introduction
