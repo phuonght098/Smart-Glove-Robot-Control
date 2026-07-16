@@ -284,9 +284,12 @@ Adafruit PWM Servo Driver Library (Provides Adafruit_PWMServoDriver.h for contro
 
 ## Compilation & Upload 
 
-Clone this repository:
+## Clone this repository
 
-git clone [https://github.com/](https://github.com/)phuonght098/Smart-Glove-Robot-Control.git
+```bash
+git clone https://github.com/phuonght098/Smart-Glove-Robot-Control.git
+cd Smart-Glove-Robot-Control
+```
 
 
 Upload to Transmitter (Sensor Glove):
